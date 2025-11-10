@@ -11,10 +11,10 @@ from .base_layers import ConvLayer, InvertedResidualBlock
 
 from .mobile_vit_v1_block import MobileViT_v1_Block
 
-# WEIGHTS_URL = (
-#     r"https://huggingface.co/veb-101/Keras-3-apple-mobilevit/resolve/main/keras-3-mobilevit-v1-weights/keras_MobileVIT_v1_model_{model_type}.weights.h5"
-# )
-WEIGHTS_URL = "DONT USE PRE TRAINED FOR NOW"
+WEIGHTS_URL = (
+    r"https://huggingface.co/veb-101/Keras-3-apple-mobilevit/resolve/main/keras-3-mobilevit-v1-weights/keras_MobileVIT_v1_model_{model_type}.weights.h5"
+)
+# WEIGHTS_URL = "DONT USE PRE TRAINED FOR NOW"
 
 def MobileViT_v1(
     configs,
@@ -150,7 +150,7 @@ def build_MobileViT_v1(
     classifier_head_activation: str = "linear",
     input_shape: tuple = (256, 256, 3),
     include_top: bool = True,  # Whether to include the classification layer in the model
-    pretrained: bool = False,  # Whether to load pretrained weights, right now lets keep it false
+    pretrained: bool = True,  # Whether to load pretrained weights, right now lets keep it false
     cache_dir: Optional[str] = None,  # Local cache directory for weights
     updates: Optional[dict] = None,
     **kwargs,
@@ -182,6 +182,7 @@ def build_MobileViT_v1(
 
     #MAKE SURE FOR NOW THIS IS FALSE
     if pretrained:
+        print(WEIGHTS_URL)
         weights_path = utils.get_file(
             fname=f"keras_MobileVIT_v1_model_{model_type}.weights.h5",
             origin=WEIGHTS_URL.format(model_type=model_type),
